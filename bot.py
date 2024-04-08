@@ -25,7 +25,7 @@ def handle_start(message):
     button3 = types.KeyboardButton('Ближайшее')
     keyboard.add(button1, button2, button3)
 
-    bot.reply_to(message, 'Привет! Я бот.', reply_markup=keyboard)
+    bot.reply_to(message, 'Привет, Дашулик! Я тебя лублу <3', reply_markup=keyboard)
 
 
 @bot.message_handler(func=lambda message: True)
