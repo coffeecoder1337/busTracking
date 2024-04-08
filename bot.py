@@ -13,8 +13,7 @@ from_home_url = 'https://tagiltram.ru/bus-58-1'
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-to_home = Parser(to_home_url)
-from_home = Parser(from_home_url)
+
 
 
 @bot.message_handler(commands=['start'])
@@ -31,6 +30,7 @@ def handle_start(message):
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     if message.text == 'От вокзала':
+        to_home = Parser(to_home_url)
         to_home_times = to_home.parse_time()
         to_home_times_str = '\n'.join([t for t in to_home_times])
 
@@ -39,6 +39,7 @@ def handle_message(message):
         bot.reply_to(message, response)
 
     elif message.text == 'От северного':
+        from_home = Parser(from_home_url)
         from_home_times = from_home.parse_time()
         from_home_times_str = '\n'.join([t for t in from_home_times])
 
@@ -47,6 +48,9 @@ def handle_message(message):
         bot.reply_to(message, response)
 
     elif message.text == 'Ближайшее':
+        to_home = Parser(to_home_url)
+        from_home = Parser(from_home_url)
+
         to_home_times = BusGetter.get_next_three_bus(to_home.parse_time())
         from_home_times = BusGetter.get_next_three_bus(from_home.parse_time())
 
